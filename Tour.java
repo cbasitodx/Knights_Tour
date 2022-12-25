@@ -8,14 +8,14 @@ public class Tour {
 	public static Integer[][] createBoard(int rows, int cols){
 		Integer[][] board = new Integer[rows][cols];
 		for(int i = 0; i < board.length; i++)
-			for(int j = 0; j < board.length; j++)
+			for(int j = 0; j < board[0].length; j++)
 				board[i][j] = 0;
 		return board;
 	}
 
 	public static void visualizeBoard(Integer[][] board) {
 		for(int i = 0; i < board.length; i++) {
-			for(int j = 0; j < board.length; j++) {
+			for(int j = 0; j < board[0].length; j++) {
 				System.out.print(" | " + board[i][j] + " | ");
 			}
 			System.out.print("\n");
@@ -33,7 +33,6 @@ public class Tour {
 		tourRec(board, startingPos, visited, 2);
 	}
 
-	
 	// NO ADMITE CICLOS: CORREGIR
 	public static void tourRec(Integer[][] board, Coord pos, Set<Coord> visited, int counter) {
 		// Obtenemos los  movimientos disponibles
@@ -41,8 +40,8 @@ public class Tour {
 		Integer ypos = pos.getY();
 		Integer[][] moves = {{xpos - 2, ypos - 1}, {xpos - 2, ypos + 1}, 
 				{xpos - 1, ypos - 2}, {xpos - 1, ypos + 2}, 
-				{xpos + 1, ypos - 2}, {xpos + 1, ypos + 2}, 
-				{xpos + 2, ypos - 1}, {xpos + 2, ypos + 1}};
+				{ xpos + 1, ypos - 2}, {xpos + 1, ypos + 2}, 
+				{ xpos + 2, ypos - 1}, {xpos + 2, ypos + 1}};
 
 		//Hacemos la recursion
 		for(int i = 0; i < moves.length; i++) {
@@ -54,6 +53,8 @@ public class Tour {
 			}
 		}
 		//Caso base
+		
+
 		if(visited.size() == board.length*board[0].length) {
 			return;
 		}
@@ -64,14 +65,12 @@ public class Tour {
 	}
 
 	public static void main(String[] args) {
-		int rows = 9;
-		int cols = 9;
+		int rows = 3;
+		int cols = 4;
 
 		Integer[][] board = createBoard(rows, cols);
-		
 		tour(board, new Coord(0,0));
 
 		visualizeBoard(board);
 	}
-
 }
